@@ -1,28 +1,48 @@
-let playerScore = 0;
-let computerScore = 0;
+var info = {
+    "ROCK":"PAPER",
+    "PAPER":"SCISSORS",
+    "SCISSORS":"ROCK"
+};
+
+var score = {
+    "user": 0,
+    "comp": 0,
+    "tie":0
+}
 
 function computerPlay() {
-    let computerChoice = ""
-    let choice = Math.floor(Math.random() * 3)
-    if (choice == 0){
-        return computerChoice = 'rock'
-    } else if (choice == 1){
-        return computerChoice = 'paper'
-    } else{
-        return computerChoice = 'scissors'
+    values = Object.values(info);
+    return values[Math.floor(Math.random() * values.length)].toUpperCase();
+}
+
+function playerPlay() {
+    user = prompt("What do you choose ?");
+    return user.toUpperCase();
+}
+
+function check(userval, compval) {
+    if ( info[userval] === compval ) {
+        score["comp"]++;
+        console.log(`You lose ! ${compval} beats ${userval} `);
+    }
+    else if ( userval === compval ) {
+        score["tie"]++;
+        console.log("Tie !");
+    }
+    else {
+        score["user"]++;
+        console.log(`You win ! ${userval} beats ${compval} `);
     }
 }
 
-function playRound(playerChoice, computerChoice){
-
-    if ((playerSelection == 'rock' && computerSelection == 'scissors') ||
-    (playerSelection == 'scissors' && computerSelection == 'paper') ||
-    (playerSelection == 'paper' && computerSelection == 'rock')) {
-    
-    return ('You win! ' + playerSelection + ' beats ' + computerSelection)
-    } else if (playerSelection == computerSelection) {
-        return ('It\'s a tie. You both chose ' + playerSelection)
-    } else {
-    return ('You lose! ' + computerSelection + ' beats ' + playerSelection)
+function game() {
+    for (let i = 0; i < 5; i++) {
+        userselection = playerPlay();
+        computerselection = computerPlay();
+        check(userselection,computerselection);
     }
+    console.log(`
+    User Wins ${score["user"]}
+    Computer Wins ${score["comp"]}
+    Tie's ${score["tie"]}`);
 }
